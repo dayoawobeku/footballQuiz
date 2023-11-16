@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import PremierLeagueQxts from "../components/PremierLeagueQxts";
+import { useState } from "react";
 import { useQuestions } from "../contexts/DataProvider";
 import LaligaQxts from "../components/LaligaQxts";
 
@@ -54,11 +53,15 @@ const StyledLaliga = styled.div`
 
 function Laliga() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen } = useQuestions();
+  const { dispatch, isQuestionsOpen, questions } = useQuestions();
+
+  const LIGA_QXTS_LENGTH = questions
+  ?.find((ele) => ele.league === "Champions League")
+  ?.questions.length
 
   // const [isOpen, setIsOpen] = useState(false);
 
-  const [count, setCount] = useState(false);
+  const [count, setCount] = useState(1);
 
   return (
     <>
@@ -68,19 +71,19 @@ function Laliga() {
           <StyledLaliga>
             <Header>
               <Img
-                src="./images/premier-league-footballquiz.jpg"
-                alt="premier league"
+                src="./images/laliga-logo.jpg"
+                alt="La liga"
               />
-              <div>Champions League</div>
+              <div>La Liga</div>
               <button>&larr;</button>
             </Header>
 
             <QuestionPicker>
               <div>Questions</div>
               <div>
-                <button onClick={() => setCount((c) => c - 1)}>-</button>
+                <button disabled={count === 1} onClick={() => setCount((c) => c - 1)}>-</button>
                 <span style={{ paddingInline: "4px" }}>{count}</span>
-                <button onClick={() => setCount((c) => c + 1)}>+</button>
+                <button disabled={count === LIGA_QXTS_LENGTH} onClick={() => setCount((c) => c + 1)}>+</button>
               </div>
             </QuestionPicker>
 
@@ -98,7 +101,7 @@ function Laliga() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: "Premier League" })
+                dispatch({ type: "startQuiz", payload: ["Premier League", count] })
               }
             >
               Start Quiz

@@ -3,11 +3,11 @@ import Questions from "./Questions";
 
 //providing state to monitor the position of the question
 function PremierLeagueQxts() {
-  const { questions, tracker } = useQuestions();
+  const { questions, tracker, maxQxts } = useQuestions();
 
   const EPL_QXTS = questions?.find(
     (ele) => ele.league === "Premier League"
-  )?.questions;
+  )?.questions.slice (0, maxQxts);
 
   console.log(EPL_QXTS);
   return (

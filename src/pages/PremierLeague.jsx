@@ -53,11 +53,14 @@ const StyledPremierLeague = styled.div`
 
 function PremierLeague() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen } = useQuestions();
+  const { dispatch, isQuestionsOpen, questions } = useQuestions();
+
+  const EPL_QXT_LENGTH = questions?.find((ele) => ele.league === "Champions League")
+    ?.questions.length;
 
   // const [isOpen, setIsOpen] = useState(false);
 
-  const [count, setCount] = useState(false);
+  const [count, setCount] = useState(1);
 
   return (
     <>
@@ -77,9 +80,19 @@ function PremierLeague() {
             <QuestionPicker>
               <div>Questions</div>
               <div>
-                <button onClick={() => setCount((c) => c - 1)}>-</button>
+                <button
+                  onClick={() => setCount((c) => c - 1)}
+                  disabled={count === 1}
+                >
+                  -
+                </button>
                 <span style={{ paddingInline: "4px" }}>{count}</span>
-                <button onClick={() => setCount((c) => c + 1)}>+</button>
+                <button
+                  onClick={() => setCount((c) => c + 1)}
+                  disabled={count === EPL_QXT_LENGTH}
+                >
+                  +
+                </button>
               </div>
             </QuestionPicker>
 
@@ -97,7 +110,7 @@ function PremierLeague() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: "Premier League" })
+                dispatch({ type: "startQuiz", payload: ["Premier League", count] })
               }
             >
               Start Quiz

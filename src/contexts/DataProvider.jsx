@@ -10,6 +10,7 @@ const initialState = {
   status: "",
   leagueType: '',
   answer: null,
+  maxQxts: 1,
 };
 
 // const BASE_URL = '';
@@ -39,12 +40,14 @@ function reducer(state, action) {
         ...state,
         tracker: 0,
         isQuestionsOpen: true,
+        maxQxts: 1
       };
     case "startQuiz":
       return {
         ...state,
         isQuestionsOpen: false,
-        leagueType: action.payload,
+        leagueType: action.payload[0],
+        maxQxts: action.payload[1]
       };
     case "checkAnswer":
       return {
@@ -69,13 +72,14 @@ function DataProvider({ children }) {
 
 
 
-  const [{ questions, isQuestionsOpen, leagueType,  tracker, answer }, dispatch] =
+  const [{ questions, isQuestionsOpen, leagueType,  tracker, answer, maxQxts }, dispatch] =
     useReducer(reducer, initialState);
 
   return (
     <DataContext.Provider
       value={{
         questions,
+        maxQxts,
         leagueType,
         tracker,
         isQuestionsOpen,

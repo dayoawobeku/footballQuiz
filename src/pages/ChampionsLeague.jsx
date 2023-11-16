@@ -53,11 +53,15 @@ const StyledChampionsLeague = styled.div`
 
 function ChampionsLeague() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen } = useQuestions();
+  const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
   // const [isOpen, setIsOpen] = useState(false);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
+
+  const CL_QXTS_LENGTH = questions
+  ?.find((ele) => ele.league === "Champions League")
+  ?.questions.length
 
   return (
     <>
@@ -77,9 +81,9 @@ function ChampionsLeague() {
             <QuestionPicker>
               <div>Questions</div>
               <div>
-                <button onClick={() => setCount((c) => c - 1)}>-</button>
+                <button disabled={count === 1} onClick={() => setCount((c) => c - 1)}>-</button>
                 <span style={{ paddingInline: "4px" }}>{count}</span>
-                <button onClick={() => setCount((c) => c + 1)}>+</button>
+                <button disabled={count === CL_QXTS_LENGTH} onClick={() => setCount((c) => c + 1)}>+</button>
               </div>
             </QuestionPicker>
 
@@ -97,7 +101,7 @@ function ChampionsLeague() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: "Champions League" })
+                dispatch({ type: "startQuiz", payload: ["Champions League" , count]})
               }
             >
               Start Quiz
