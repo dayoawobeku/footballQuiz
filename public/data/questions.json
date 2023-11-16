@@ -6,62 +6,102 @@
         {
           "id": 1,
           "question": "Which team won the Premier League in the 2020-2021 season?",
-          "options": ["Manchester City", "Manchester United", "Liverpool", "Chelsea"],
-          "correct_answer": "Manchester City"
+          "options": [
+            "Manchester City",
+            "Manchester United",
+            "Liverpool",
+            "Chelsea"
+          ],
+          "correct_answer": "Manchester City",
+          "point": 10
         },
         {
           "id": 2,
           "question": "Who is the all-time top scorer in Premier League history?",
-          "options": ["Alan Shearer", "Thierry Henry", "Wayne Rooney", "Frank Lampard"],
-          "correct_answer": "Alan Shearer"
+          "options": [
+            "Alan Shearer",
+            "Thierry Henry",
+            "Wayne Rooney",
+            "Frank Lampard"
+          ],
+          "correct_answer": "Alan Shearer",
+          "point": 10
         },
         {
           "id": 3,
           "question": "Which club has the most Premier League titles?",
           "options": ["Manchester United", "Liverpool", "Arsenal", "Chelsea"],
-          "correct_answer": "Manchester United"
+          "correct_answer": "Manchester United",
+          "point": 10
         },
         {
           "id": 4,
           "question": "Who is the current manager of Liverpool FC?",
-          "options": ["Jurgen Klopp", "Pep Guardiola", "Ole Gunnar Solskjaer", "Thomas Tuchel"],
-          "correct_answer": "Jurgen Klopp"
+          "options": [
+            "Jurgen Klopp",
+            "Pep Guardiola",
+            "Ole Gunnar Solskjaer",
+            "Thomas Tuchel"
+          ],
+          "correct_answer": "Jurgen Klopp",
+          "point": 10
         },
         {
           "id": 5,
           "question": "In which year did the Premier League begin?",
           "options": ["1990", "1992", "1994", "1996"],
-          "correct_answer": "1992"
+          "correct_answer": "1992",
+          "point": 10
         },
         {
           "id": 6,
           "question": "Which player holds the record for the most assists in a single Premier League season?",
-          "options": ["Thierry Henry", "Kevin De Bruyne", "Frank Lampard", "Ryan Giggs"],
-          "correct_answer": "Kevin De Bruyne"
+          "options": [
+            "Thierry Henry",
+            "Kevin De Bruyne",
+            "Frank Lampard",
+            "Ryan Giggs"
+          ],
+          "correct_answer": "Kevin De Bruyne",
+          "point": 10
         },
         {
           "id": 7,
           "question": "How many teams are in the Premier League?",
           "options": ["18", "20", "22", "24"],
-          "correct_answer": "20"
+          "correct_answer": "20",
+          "point": 10
         },
         {
           "id": 8,
           "question": "Which stadium is known as the 'Theatre of Dreams'?",
-          "options": ["Anfield", "Old Trafford", "Etihad Stadium", "Emirates Stadium"],
-          "correct_answer": "Old Trafford"
+          "options": [
+            "Anfield",
+            "Old Trafford",
+            "Etihad Stadium",
+            "Emirates Stadium"
+          ],
+          "correct_answer": "Old Trafford",
+          "point": 10
         },
         {
           "id": 9,
           "question": "Who is the youngest goalscorer in Premier League history?",
-          "options": ["Raheem Sterling", "Wayne Rooney", "Michael Owen", "James Vaughan"],
-          "correct_answer": "James Vaughan"
+          "options": [
+            "Raheem Sterling",
+            "Wayne Rooney",
+            "Michael Owen",
+            "James Vaughan"
+          ],
+          "correct_answer": "James Vaughan",
+          "point": 10
         },
         {
           "id": 10,
           "question": "Which team has the longest unbeaten run in Premier League history?",
           "options": ["Arsenal", "Manchester United", "Chelsea", "Liverpool"],
-          "correct_answer": "Arsenal"
+          "correct_answer": "Arsenal",
+          "point": 10
         }
       ]
     },
@@ -71,62 +111,112 @@
         {
           "id": 11,
           "question": "Which club has won the most La Liga titles?",
-          "options": ["Real Madrid", "Barcelona", "Atletico Madrid", "Valencia"],
-          "correct_answer": "Real Madrid"
+          "options": [
+            "Real Madrid",
+            "Barcelona",
+            "Atletico Madrid",
+            "Valencia"
+          ],
+          "correct_answer": "Real Madrid",
+          "point": 10
         },
         {
           "id": 12,
           "question": "Who is the all-time top scorer in La Liga?",
-          "options": ["Lionel Messi", "Cristiano Ronaldo", "Hugo Sanchez", "Telmo Zarra"],
-          "correct_answer": "Lionel Messi"
+          "options": [
+            "Lionel Messi",
+            "Cristiano Ronaldo",
+            "Hugo Sanchez",
+            "Telmo Zarra"
+          ],
+          "correct_answer": "Lionel Messi",
+          "point": 10
         },
         {
           "id": 13,
           "question": "Which team won the La Liga title in the 2020-2021 season?",
           "options": ["Real Madrid", "Barcelona", "Atletico Madrid", "Sevilla"],
-          "correct_answer": "Atletico Madrid"
+          "correct_answer": "Atletico Madrid",
+          "point": 10
         },
         {
           "id": 14,
           "question": "Who is known as the 'Baby-faced Assassin' and played for Barcelona and Atletico Madrid?",
-          "options": ["Fernando Torres", "David Villa", "Diego Costa", "Luis Suarez"],
-          "correct_answer": "Luis Suarez"
+          "options": [
+            "Fernando Torres",
+            "David Villa",
+            "Diego Costa",
+            "Luis Suarez"
+          ],
+          "correct_answer": "Luis Suarez",
+          "point": 10
         },
         {
           "id": 15,
           "question": "In which year was La Liga founded?",
           "options": ["1929", "1930", "1940", "1950"],
-          "correct_answer": "1929"
+          "correct_answer": "1929",
+          "point": 10
         },
         {
           "id": 16,
           "question": "Which stadium is the home ground of Real Madrid?",
-          "options": ["Camp Nou", "Santiago Bernabeu", "Wanda Metropolitano", "Mestalla"],
-          "correct_answer": "Santiago Bernabeu"
+          "options": [
+            "Camp Nou",
+            "Santiago Bernabeu",
+            "Wanda Metropolitano",
+            "Mestalla"
+          ],
+          "correct_answer": "Santiago Bernabeu",
+          "point": 10
         },
         {
           "id": 17,
           "question": "Who is the oldest football club in La Liga?",
-          "options": ["Real Madrid", "Barcelona", "Athletic Bilbao", "Real Sociedad"],
-          "correct_answer": "Athletic Bilbao"
+          "options": [
+            "Real Madrid",
+            "Barcelona",
+            "Athletic Bilbao",
+            "Real Sociedad"
+          ],
+          "correct_answer": "Athletic Bilbao",
+          "point": 10
         },
         {
           "id": 18,
           "question": "Which Spanish club is known as 'The Indios'?",
-          "options": ["Real Madrid", "Barcelona", "Atletico Madrid", "Valencia"],
-          "correct_answer": "Atletico Madrid"
+          "options": [
+            "Real Madrid",
+            "Barcelona",
+            "Atletico Madrid",
+            "Valencia"
+          ],
+          "correct_answer": "Atletico Madrid",
+          "point": 10
         },
         {
           "id": 19,
           "question": "Who holds the record for the most La Liga appearances?",
-          "options": ["Xavi Hernandez", "Iker Casillas", "Sergio Ramos", "Andres Iniesta"],
-          "correct_answer": "Xavi Hernandez"
+          "options": [
+            "Xavi Hernandez",
+            "Iker Casillas",
+            "Sergio Ramos",
+            "Andres Iniesta"
+          ],
+          "correct_answer": "Xavi Hernandez",
+          "point": 10
         },
         {
           "id": 20,
           "question": "Which player won the Pichichi Trophy for the 2020-2021 La Liga season?",
-          "options": ["Lionel Messi", "Karim Benzema", "Gerard Moreno", "Luis Suarez"],
-          "correct_answer": "Lionel Messi"
+          "options": [
+            "Lionel Messi",
+            "Karim Benzema",
+            "Gerard Moreno",
+            "Luis Suarez"
+          ],
+          "correct_answer": "Lionel Messi",
+          "point": 10
         }
       ]
     },
@@ -137,61 +227,101 @@
           "id": 21,
           "question": "Which team has won the most UEFA Champions League titles?",
           "options": ["Real Madrid", "Barcelona", "AC Milan", "Liverpool"],
-          "correct_answer": "Real Madrid"
+          "correct_answer": "Real Madrid",
+          "point": 10
         },
         {
           "id": 22,
           "question": "Who is the all-time top scorer in the history of the UEFA Champions League?",
-          "options": ["Cristiano Ronaldo", "Lionel Messi", "Raul", "Robert Lewandowski"],
-          "correct_answer": "Cristiano Ronaldo"
+          "options": [
+            "Cristiano Ronaldo",
+            "Lionel Messi",
+            "Raul",
+            "Robert Lewandowski"
+          ],
+          "correct_answer": "Cristiano Ronaldo",
+          "point": 10
         },
         {
           "id": 23,
           "question": "Which club won the UEFA Champions League in the 2020-2021 season?",
-          "options": ["Manchester City", "Chelsea", "Real Madrid", "Paris Saint-Germain"],
-          "correct_answer": "Chelsea"
+          "options": [
+            "Manchester City",
+            "Chelsea",
+            "Real Madrid",
+            "Paris Saint-Germain"
+          ],
+          "correct_answer": "Chelsea",
+          "point": 10
         },
         {
           "id": 24,
           "question": "Who is the only player to have won the UEFA Champions League with three different clubs?",
-          "options": ["Cristiano Ronaldo", "Lionel Messi", "Zlatan Ibrahimovic", "Andres Iniesta"],
-          "correct_answer": "Cristiano Ronaldo"
+          "options": [
+            "Cristiano Ronaldo",
+            "Lionel Messi",
+            "Zlatan Ibrahimovic",
+            "Andres Iniesta"
+          ],
+          "correct_answer": "Cristiano Ronaldo",
+          "point": 10
         },
         {
           "id": 25,
           "question": "In which city is the UEFA Champions League final usually held?",
           "options": ["London", "Paris", "Istanbul", "Madrid"],
-          "correct_answer": "Istanbul"
+          "correct_answer": "Istanbul",
+          "point": 10
         },
         {
           "id": 26,
           "question": "Which player holds the record for the most goals in a single UEFA Champions League season?",
-          "options": ["Cristiano Ronaldo", "Lionel Messi", "Robert Lewandowski", "Neymar"],
-          "correct_answer": "Cristiano Ronaldo"
+          "options": [
+            "Cristiano Ronaldo",
+            "Lionel Messi",
+            "Robert Lewandowski",
+            "Neymar"
+          ],
+          "correct_answer": "Cristiano Ronaldo",
+          "point": 10
         },
         {
           "id": 27,
           "question": "How many teams participate in the group stage of the UEFA Champions League?",
           "options": ["24", "32", "48", "64"],
-          "correct_answer": "32"
+          "correct_answer": "32",
+          "point": 10
         },
         {
           "id": 28,
           "question": "Which club has won the UEFA Champions League three times in a row?",
           "options": ["Barcelona", "Real Madrid", "Bayern Munich", "AC Milan"],
-          "correct_answer": "Real Madrid"
+          "correct_answer": "Real Madrid",
+          "point": 10
         },
         {
           "id": 29,
           "question": "Who was the top scorer of the 2020-2021 UEFA Champions League season?",
-          "options": ["Erling Haaland", "Kylian Mbappe", "Robert Lewandowski", "Mohamed Salah"],
-          "correct_answer": "Erling Haaland"
+          "options": [
+            "Erling Haaland",
+            "Kylian Mbappe",
+            "Robert Lewandowski",
+            "Mohamed Salah"
+          ],
+          "correct_answer": "Erling Haaland",
+          "point": 10
         },
         {
           "id": 30,
           "question": "Which team won the inaugural UEFA Champions League in the 1955-1956 season?",
-          "options": ["Real Madrid", "AC Milan", "Barcelona", "Manchester United"],
-          "correct_answer": "Real Madrid"
+          "options": [
+            "Real Madrid",
+            "AC Milan",
+            "Barcelona",
+            "Manchester United"
+          ],
+          "correct_answer": "Real Madrid",
+          "point": 10
         }
       ]
     }
