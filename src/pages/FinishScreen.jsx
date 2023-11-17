@@ -29,7 +29,12 @@ const Button = styled(Link)`
 `;
 
 function FinishScreen() {
-  const { leagueType } = useQuestions();
+  const { leagueType, totalPoints, maxPossiblePoint, dispatch } =
+    useQuestions();
+
+  function handleFinish() {
+    dispatch({ type: "finish" });
+  }
 
   return (
     <Final>
@@ -43,10 +48,14 @@ function FinishScreen() {
         }`}
         alt=""
       />
-      <div>Total Score : 4 of 5</div>
+      <div>
+        Total Score : {totalPoints} of {maxPossiblePoint}
+      </div>
       <div>Good</div>
       <div>Progress</div>
-      <Button to="/">Go To Home</Button>
+      <Button onClick={handleFinish} to="/">
+        Go To Home
+      </Button>
     </Final>
   );
 }

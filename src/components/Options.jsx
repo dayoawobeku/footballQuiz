@@ -25,8 +25,8 @@ const StyledButton = styled.button`
   padding: 8px;
 `;
 
-function Options({ option, value, correctOption }) {
-  const { dispatch, answer } = useQuestions();
+function Options({ option, value, correctOption, point }) {
+  const { dispatch, answer, totalPoints } = useQuestions();
 
   const hasAnswered = answer !== null;
   // const [styling, setStyling] = useState("");
@@ -34,9 +34,14 @@ function Options({ option, value, correctOption }) {
   console.log(value, correctOption);
 
   function handleCorrectOption() {
+    //if the the correction is same as the answer chosen add to totalPoints
 
-    // if (value === correctOption)
-      dispatch({ type: "checkAnswer", payload: correctOption });
+    //check if the answer is correct
+    const ansCheck = correctOption === value ? totalPoints + point : totalPoints;
+    dispatch({ type: "checkAnswer", payload: [correctOption, ansCheck] });
+    console.log({ totalPoints, point });
+    console.log({answer, value})
+    console.log(ansCheck);
   }
 
   return (
@@ -55,11 +60,9 @@ StyledButton.defaultProps = {
 
 export default Options;
 
-
 //only concerned with two values
 //1) the clicked option and the correct answer
 //check for these two and work on thenm
-
 
 //the logic goes like this:
 //1) if the person picks the correct option, only the correct option gets the styling

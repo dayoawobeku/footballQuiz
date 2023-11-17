@@ -34,7 +34,7 @@ function Questions({ question, qxtLength }) {
     if (qxtLength - 1 !== tracker) dispatch({ type: "increment" });
     else {
       navigate("/finish");
-      dispatch({ type: "finish" });
+      
       console.log(isQuestionsOpen);
     }
   };
@@ -57,8 +57,7 @@ function Questions({ question, qxtLength }) {
               value={i}
               correctOption={indexOfAnswer}
               key={i}
-              // styling={styling}
-              // setStyling={setStyling}
+              point={question?.point}
             />
           ))}
         </StyledQuestion>

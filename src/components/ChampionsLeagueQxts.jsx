@@ -9,6 +9,10 @@ function ChampionsLeagueQxts() {
     ?.find((ele) => ele.league === "Champions League")
     ?.questions.slice(0, maxQxts);
 
+  //calculate the total possible points here and pass it down to the question component to enable dispatching the action
+
+  // const totalPossiblePoints = CL_QXTS?.reduce((acc, cur) => acc + cur.point, 0);
+
   console.log(CL_QXTS);
   return (
     <div>

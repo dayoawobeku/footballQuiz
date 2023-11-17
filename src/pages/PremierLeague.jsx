@@ -55,8 +55,10 @@ function PremierLeague() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
-  const EPL_QXT_LENGTH = questions?.find((ele) => ele.league === "Champions League")
-    ?.questions.length;
+  const EPL_QXT = questions?.find(
+    (ele) => ele.league === "Champions League"
+  )?.questions;
+  const EPL_QXT_LENGTH = EPL_QXT.length;
 
   // const [isOpen, setIsOpen] = useState(false);
 
@@ -73,7 +75,7 @@ function PremierLeague() {
                 src="./images/premier-league-footballquiz.jpg"
                 alt="premier league"
               />
-              <div>Champions League</div>
+              <div>Premier League</div>
               <button>&larr;</button>
             </Header>
 
@@ -110,7 +112,17 @@ function PremierLeague() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: ["Premier League", count] })
+                dispatch({
+                  type: "startQuiz",
+                  payload: [
+                    "Premier League",
+                    count,
+                    EPL_QXT?.slice(0, count).reduce(
+                      (acc, cur) => acc + cur.point,
+                      0
+                    ),
+                  ],
+                })
               }
             >
               Start Quiz

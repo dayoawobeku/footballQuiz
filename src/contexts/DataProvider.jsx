@@ -6,14 +6,16 @@ const DataContext = createContext();
 const initialState = {
   questions: [],
   tracker: 0,
-  isQuestionsOpen: false,
-  status: "",
-  leagueType: '',
+  isQuestionsOpen: true,
+  totalPoints: 0,
+  leagueType: "",
   answer: null,
   maxQxts: 1,
+  maxPossiblePoint: 0,
 };
 
 // const BASE_URL = '';
+//implementing
 
 function reducer(state, action) {
   switch (action.type) {
@@ -21,7 +23,7 @@ function reducer(state, action) {
       return {
         ...state,
         questions: action.payload,
-        isQuestionsOpen: false,
+        isQuestionsOpen: true,
       };
     case "increment":
       return {
@@ -40,19 +42,24 @@ function reducer(state, action) {
         ...state,
         tracker: 0,
         isQuestionsOpen: true,
-        maxQxts: 1
+        maxQxts: 1,
+        answer: null,
+        totalPoints: 0,
+        maxPossiblePoint: 0,
       };
     case "startQuiz":
       return {
         ...state,
         isQuestionsOpen: false,
         leagueType: action.payload[0],
-        maxQxts: action.payload[1]
+        maxQxts: action.payload[1],
+        maxPossiblePoint: action.payload[2],
       };
     case "checkAnswer":
       return {
         ...state,
-        answer: action.payload,
+        answer: action.payload.at(0),
+        totalPoints: action.payload.at(1),
       };
     default:
       return new Error("Action Type not Found");
@@ -70,10 +77,19 @@ function DataProvider({ children }) {
       });
   }, []);
 
-
-
-  const [{ questions, isQuestionsOpen, leagueType,  tracker, answer, maxQxts }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    {
+      questions,
+      isQuestionsOpen,
+      leagueType,
+      totalPoints,
+      tracker,
+      answer,
+      maxQxts,
+      maxPossiblePoint,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   return (
     <DataContext.Provider
@@ -84,6 +100,8 @@ function DataProvider({ children }) {
         tracker,
         isQuestionsOpen,
         answer,
+        totalPoints,
+        maxPossiblePoint,
         dispatch,
       }}
     >

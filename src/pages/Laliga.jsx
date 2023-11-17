@@ -55,9 +55,10 @@ function Laliga() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
-  const LIGA_QXTS_LENGTH = questions
-  ?.find((ele) => ele.league === "Champions League")
-  ?.questions.length
+  const LIGA_QXTS = questions?.find(
+    (ele) => ele.league === "Champions League"
+  )?.questions;
+  const LIGA_QXTS_LENGTH = LIGA_QXTS.length;
 
   // const [isOpen, setIsOpen] = useState(false);
 
@@ -70,10 +71,7 @@ function Laliga() {
           <button onClick={() => navigate(-1)}>&larr;</button>
           <StyledLaliga>
             <Header>
-              <Img
-                src="./images/laliga-logo.jpg"
-                alt="La liga"
-              />
+              <Img src="./images/laliga-logo.jpg" alt="La liga" />
               <div>La Liga</div>
               <button>&larr;</button>
             </Header>
@@ -81,9 +79,19 @@ function Laliga() {
             <QuestionPicker>
               <div>Questions</div>
               <div>
-                <button disabled={count === 1} onClick={() => setCount((c) => c - 1)}>-</button>
+                <button
+                  disabled={count === 1}
+                  onClick={() => setCount((c) => c - 1)}
+                >
+                  -
+                </button>
                 <span style={{ paddingInline: "4px" }}>{count}</span>
-                <button disabled={count === LIGA_QXTS_LENGTH} onClick={() => setCount((c) => c + 1)}>+</button>
+                <button
+                  disabled={count === LIGA_QXTS_LENGTH}
+                  onClick={() => setCount((c) => c + 1)}
+                >
+                  +
+                </button>
               </div>
             </QuestionPicker>
 
@@ -101,7 +109,17 @@ function Laliga() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: ["Premier League", count] })
+                dispatch({
+                  type: "startQuiz",
+                  payload: [
+                    "La Liga",
+                    count,
+                    LIGA_QXTS?.slice(0, count).reduce(
+                      (acc, cur) => acc + cur.point,
+                      0
+                    ),
+                  ],
+                })
               }
             >
               Start Quiz
@@ -116,4 +134,3 @@ function Laliga() {
 }
 
 export default Laliga;
-

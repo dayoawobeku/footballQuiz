@@ -55,13 +55,23 @@ function ChampionsLeague() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
-  // const [isOpen, setIsOpen] = useState(false);
+  //Tabnine produced the below comment, i think i need to utilize useEffect moref
+
+  //  useEffect(() => {
+  //     if (isQuestionsOpen) {
+  //       dispatch({ type: "finish" });
+  //     }
+  //   }, [isQuestionsOpen]);
 
   const [count, setCount] = useState(1);
 
-  const CL_QXTS_LENGTH = questions
-  ?.find((ele) => ele.league === "Champions League")
-  ?.questions.length
+  const CL_QXTS = questions?.find(
+    (ele) => ele.league === "Champions League"
+  )?.questions;
+
+  // const totalPossiblePoints = CL_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0);
+
+  const CL_QXTS_LENGTH = CL_QXTS?.length;
 
   return (
     <>
@@ -81,9 +91,19 @@ function ChampionsLeague() {
             <QuestionPicker>
               <div>Questions</div>
               <div>
-                <button disabled={count === 1} onClick={() => setCount((c) => c - 1)}>-</button>
+                <button
+                  disabled={count === 1}
+                  onClick={() => setCount((c) => c - 1)}
+                >
+                  -
+                </button>
                 <span style={{ paddingInline: "4px" }}>{count}</span>
-                <button disabled={count === CL_QXTS_LENGTH} onClick={() => setCount((c) => c + 1)}>+</button>
+                <button
+                  disabled={count === CL_QXTS_LENGTH}
+                  onClick={() => setCount((c) => c + 1)}
+                >
+                  +
+                </button>
               </div>
             </QuestionPicker>
 
@@ -101,7 +121,17 @@ function ChampionsLeague() {
 
             <StyledNavLink
               onClick={() =>
-                dispatch({ type: "startQuiz", payload: ["Champions League" , count]})
+                dispatch({
+                  type: "startQuiz",
+                  payload: [
+                    "Champions League",
+                    count,
+                    CL_QXTS?.slice(0, count).reduce(
+                      (acc, cur) => acc + cur.point,
+                      0
+                    ),
+                  ],
+                })
               }
             >
               Start Quiz
