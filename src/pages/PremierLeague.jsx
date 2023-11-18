@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import PremierLeagueQxts from "../components/PremierLeagueQxts";
 import { useQuestions } from "../contexts/DataProvider";
+import useTimer from "../contexts/useTimer";
 
 const StyledNavLink = styled.button`
   padding: 4px;
@@ -64,6 +65,34 @@ function PremierLeague() {
 
   const [count, setCount] = useState(1);
 
+  const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
+
+  //defining the time the quiz should start counting
+
+  function handleTime(e) {
+    const time = e.target.value;
+    const chosenTime = time * 60;
+
+    setTimeLimit(chosenTime);
+  }
+
+  function handleStart() {
+    //starting the counter
+    setIsRunning(true);
+    dispatch({
+      type: "startQuiz",
+      payload: [
+        "Premier League",
+        count,
+        EPL_QXT?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
+      ],
+    });
+  }
+
+  const secs = timeRemaining % 60;
+  const mins = Math.floor(timeRemaining / 60);
+  // console.log(timeRemaining)
+
   return (
     <>
       {isQuestionsOpen && (
@@ -99,37 +128,30 @@ function PremierLeague() {
             </QuestionPicker>
 
             <TimePicker>
-              <div>Time Frame</div>
+              <div>
+                {mins} : {secs}
+              </div>
 
-              <select name="time" id="time">
-                <option value="2">2 mins</option>
-                <option value="4">4 mins</option>
-                <option value="5">5 mins</option>
+              <select
+                name="time"
+                id="time"
+                value={timeLimit}
+                onChange={handleTime}
+              >
+                <option value={2}>2 mins</option>
+                <option value={4}>4 mins</option>
+                <option value={5}>5 mins</option>
               </select>
             </TimePicker>
 
             {/* to implement level later */}
 
-            <StyledNavLink
-              onClick={() =>
-                dispatch({
-                  type: "startQuiz",
-                  payload: [
-                    "Premier League",
-                    count,
-                    EPL_QXT?.slice(0, count).reduce(
-                      (acc, cur) => acc + cur.point,
-                      0
-                    ),
-                  ],
-                })
-              }
-            >
-              Start Quiz
-            </StyledNavLink>
+            <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
           </StyledPremierLeague>
         </>
       )}
+
+      {/*passing the value of the min, secs, and the setisrunning to false on click of the finish button*/}
 
       {!isQuestionsOpen && <PremierLeagueQxts />}
     </>

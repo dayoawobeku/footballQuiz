@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import Options from "./Options";
 import { useQuestions } from "../contexts/DataProvider";
 import { useNavigate } from "react-router-dom";
+import useTimer from "../contexts/useTimer";
 // import { useState } from "react";
 
 //eslint-disable-next-line
@@ -16,6 +17,10 @@ const Description = styled.div`
   margin-block: 10px;
 `;
 
+const Timer = styled.div`
+  margin-block: 10px;
+`;
+
 const Header = styled.div`
   font-weight: 700;
   color: green;
@@ -25,7 +30,16 @@ const Header = styled.div`
 function Questions({ question, qxtLength }) {
   const { dispatch, tracker, isQuestionsOpen } = useQuestions();
   const navigate = useNavigate();
+
+  const { timeRemaining, setIsRunning, timeLimit } = useTimer();
   // const [styling, setStyling] = useState("");
+
+  const secs = timeRemaining % 60;
+  const mins = Math.floor(timeRemaining / 60);
+  console.log(timeRemaining);
+  console.log(timeLimit);
+  // console.log(secs);
+  // console.log(mins);
 
   const ANSWER_VALUE = question?.correct_answer;
   const indexOfAnswer = question?.options.indexOf(ANSWER_VALUE);
@@ -33,8 +47,9 @@ function Questions({ question, qxtLength }) {
   const handleClick = () => {
     if (qxtLength - 1 !== tracker) dispatch({ type: "increment" });
     else {
+      setIsRunning(false);
       navigate("/finish");
-      
+
       console.log(isQuestionsOpen);
     }
   };
@@ -48,6 +63,10 @@ function Questions({ question, qxtLength }) {
       <Description>
         Question {tracker + 1} of {qxtLength}
       </Description>
+      <Timer>
+        {mins < 10 ? `0${mins}` : mins} : {secs < 10 ? `0${secs}` : secs}
+      </Timer>
+
       <div>
         <StyledQuestion>
           <Header>{question?.question}</Header>
