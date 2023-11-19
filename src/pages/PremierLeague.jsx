@@ -91,7 +91,7 @@ function PremierLeague() {
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
-  // console.log(timeRemaining)
+  console.log(timeRemaining);
 
   return (
     <>
@@ -152,8 +152,8 @@ function PremierLeague() {
       )}
 
       {/*passing the value of the min, secs, and the setisrunning to false on click of the finish button*/}
-
-      {!isQuestionsOpen && <PremierLeagueQxts />}
+      {/*eslint-disable-next-line*/}
+      {!isQuestionsOpen && <PremierLeagueQxts timeRemaining={timeRemaining} />}
     </>
   );
 }

@@ -27,17 +27,16 @@ const Header = styled.div`
   font-size: 1.2rem;
   padding-block: 1.5rem;
 `;
-function Questions({ question, qxtLength }) {
+function Questions({ question, qxtLength, timeRemaining }) {
   const { dispatch, tracker, isQuestionsOpen } = useQuestions();
   const navigate = useNavigate();
 
-  const { timeRemaining, setIsRunning, timeLimit } = useTimer();
+  const { setIsRunning } = useTimer();
   // const [styling, setStyling] = useState("");
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
   console.log(timeRemaining);
-  console.log(timeLimit);
   // console.log(secs);
   // console.log(mins);
 
