@@ -1,67 +1,23 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
 import { useQuestions } from "../contexts/DataProvider";
 import ChampionsLeagueQxts from "../components/ChampionsLeagueQxts";
-
-const StyledNavLink = styled.button`
-  padding: 4px;
-  text-align: center;
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-  text-decoration: none;
-  background-color: green;
-  border: 8px;
-`;
-
-const Img = styled.img`
-  width: 50px;
-  border-radius: 50%;
-  height: 50px;
-  object-fit: cover;
-`;
-
-const Header = styled.div`
-  border: 1px solid green;
-  padding-inline: 1.5rem;
-  border-radius: 13px;
-  display: flex;
-  justify-content: space-between;
-  /* padding-inline: 1.5rem; */
-  padding-block: 1.5rem;
-  align-items: center;
-`;
-
-const QuestionPicker = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TimePicker = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-block: 1.5rem;
-`;
-
-const StyledChampionsLeague = styled.div`
-  padding-inline: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
+import {
+  Header,
+  Img,
+  QuestionPicker,
+  StyledLeague as StyledChampionsLeague,
+  StyledNavLink,
+  StyledWholePage,
+  TimePicker,
+} from "../ui/StyleLeagurPage";
+import useTimer from "../contexts/useTimer";
+import BackButton from "../ui/BackButton";
+import { HiArrowLeft } from "react-icons/hi2";
 
 function ChampionsLeague() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
-
-  //Tabnine produced the below comment, i think i need to utilize useEffect moref
-
-  //  useEffect(() => {
-  //     if (isQuestionsOpen) {
-  //       dispatch({ type: "finish" });
-  //     }
-  //   }, [isQuestionsOpen]);
 
   const [count, setCount] = useState(1);
 
@@ -69,15 +25,42 @@ function ChampionsLeague() {
     (ele) => ele.league === "Champions League"
   )?.questions;
 
-  // const totalPossiblePoints = CL_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0);
-
   const CL_QXTS_LENGTH = CL_QXTS?.length;
 
+  const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
+
+  //defining the time the quiz should start counting
+
+  function handleTime(e) {
+    const time = e.target.value;
+    const chosenTime = time * 60;
+
+    setTimeLimit(chosenTime);
+  }
+
+  function handleStart() {
+    //starting the counter
+    setIsRunning(true);
+    dispatch({
+      type: "startQuiz",
+      payload: [
+        "Champions League",
+        count,
+        CL_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
+      ],
+    });
+  }
+
+  const secs = timeRemaining % 60;
+  const mins = Math.floor(timeRemaining / 60);
+
   return (
-    <>
+    <StyledWholePage>
       {isQuestionsOpen && (
         <>
-          <button onClick={() => navigate(-1)}>&larr;</button>
+          <BackButton onClick={() => navigate(-1)}>
+            <HiArrowLeft style={{ fontWeight: "bold" }} />
+          </BackButton>
           <StyledChampionsLeague>
             <Header>
               <Img
@@ -108,40 +91,32 @@ function ChampionsLeague() {
             </QuestionPicker>
 
             <TimePicker>
-              <div>Time Frame</div>
+              <div>
+                {mins < 10 ? `0${mins}` : mins} :{secs < 10 ? `0${secs}` : secs}
+              </div>
 
-              <select name="time" id="time">
-                <option value="2">2 mins</option>
-                <option value="4">4 mins</option>
-                <option value="5">5 mins</option>
+              <select
+                name="time"
+                id="time"
+                className="select"
+                value={timeLimit}
+                onChange={handleTime}
+              >
+                <option value={2}>2 mins</option>
+                <option value={4}>4 mins</option>
+                <option value={5}>5 mins</option>
               </select>
             </TimePicker>
 
             {/* to implement level later */}
 
-            <StyledNavLink
-              onClick={() =>
-                dispatch({
-                  type: "startQuiz",
-                  payload: [
-                    "Champions League",
-                    count,
-                    CL_QXTS?.slice(0, count).reduce(
-                      (acc, cur) => acc + cur.point,
-                      0
-                    ),
-                  ],
-                })
-              }
-            >
-              Start Quiz
-            </StyledNavLink>
+            <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
           </StyledChampionsLeague>
         </>
       )}
 
-      {!isQuestionsOpen && <ChampionsLeagueQxts />}
-    </>
+      {!isQuestionsOpen && <ChampionsLeagueQxts timeRemaining={timeRemaining}/>}
+    </StyledWholePage>
   );
 }
 

@@ -2,7 +2,8 @@ import { useQuestions } from "../contexts/DataProvider";
 import Questions from "./Questions";
 
 //providing state to monitor the position of the question
-function ChampionsLeagueQxts() {
+//eslint-disable-next-line
+function ChampionsLeagueQxts({ timeRemaining }) {
   const { questions, tracker, maxQxts } = useQuestions();
 
   const CL_QXTS = questions
@@ -16,7 +17,11 @@ function ChampionsLeagueQxts() {
   console.log(CL_QXTS);
   return (
     <div>
-      <Questions question={CL_QXTS?.at(tracker)} qxtLength={CL_QXTS?.length} />
+      <Questions
+        question={CL_QXTS?.at(tracker)}
+        qxtLength={CL_QXTS?.length}
+        timeRemaining={timeRemaining}
+      />
     </div>
   );
 }
