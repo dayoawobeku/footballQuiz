@@ -1,44 +1,55 @@
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
+import { HiMiniPlay } from "react-icons/hi2";
+import StyledNavLink from "../ui/StyledButton";
 
 const StyledHomePage = styled.div`
   background-color: lightgreen;
   padding-block: 15px;
   height: 100dvh;
   display: flex;
-  padding-inline: 3rem;
+  /* padding-inline: 3rem; */
   flex-direction: column;
+  font-family: "Merriweather sans", sans-serif;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const Header = styled.header`
   color: green;
   font-size: 30px;
-  font-weight: 500;
-  text-align: center;
+  font-weight: 400;
   padding-top: 8px;
+  margin-bottom: 80px;
 `;
 
-const StyledNavLink = styled(NavLink)`
-  background-color: green;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 7px;
-  padding: 15px 20px;
-  width: 200px;
-  color: white;
-`;
+
 
 function Homepage() {
   return (
     <StyledHomePage>
-      <Header>Welcome to the Ultimate Sports Quiz App</Header>
-      <div>
-        <img src="./images/Premier_League.webp" alt="football players" />
+      <Header>Quiz App</Header>
+
+      <img
+        src="./images/football2-removebg.png"
+        alt="football players"
+        style={{ height: "140px", width: "140px" }}
+      />
+      <div
+        style={{
+          fontWeight: "800",
+          fontSize: "40px",
+          color: "white",
+          marginBottom: "50px",
+          width: "180px",
+          textAlign: "center",
+        }}
+      >
+        Football Quiz
       </div>
-      <StyledNavLink to='/selection'>Star Quiz</StyledNavLink>
+      <StyledNavLink to="/selection">
+        <HiMiniPlay style={{ fontSize: "20px" }} />
+        <div>Start Quiz</div>
+      </StyledNavLink>
     </StyledHomePage>
   );
 }

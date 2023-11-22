@@ -1,6 +1,7 @@
 import { styled, css } from "styled-components";
 import { useState } from "react";
 import { useQuestions } from "../contexts/DataProvider";
+import "../styles.css";
 
 const variation = {
   correct: css`
@@ -26,6 +27,7 @@ const StyledButton = styled.button`
 `;
 
 function Options({ option, value, correctOption, point }) {
+  //using context api to store my stateful logic
   const { dispatch, answer, totalPoints } = useQuestions();
 
   const hasAnswered = answer !== null;
@@ -33,24 +35,35 @@ function Options({ option, value, correctOption, point }) {
 
   console.log(value, correctOption);
 
+  function isCorrect(selectedOption) {
+    return hasAnswered && correctOption === selectedOption;
+  }
+  function isWrong(selectedOption) {
+    return (
+      hasAnswered && !isCorrect(selectedOption) && answer === selectedOption
+    );
+  }
+  console.log(isCorrect(value));
+
   function handleCorrectOption() {
     //if the the correction is same as the answer chosen add to totalPoints
 
-    //check if the answer is correct
-    const ansCheck = correctOption === value ? totalPoints + point : totalPoints;
-    dispatch({ type: "checkAnswer", payload: [correctOption, ansCheck] });
-    console.log({ totalPoints, point });
-    console.log({answer, value})
-    console.log(ansCheck);
+    const ansCheck =
+      correctOption === value ? totalPoints + point : totalPoints;
+
+    dispatch({ type: "checkAnswer", payload: [value, ansCheck] });
   }
 
   return (
-    <StyledButton
-      status={hasAnswered ? (answer === value ? "correct" : "wrong") : ""}
+    <button
+      className={`option ${hasAnswered && correctOption === value ? "correct" : ""} ${
+        isWrong(value) ? "wrong" : ""
+      }`}
       onClick={handleCorrectOption}
+      disabled={hasAnswered}
     >
       {option}
-    </StyledButton>
+    </button>
   );
 }
 

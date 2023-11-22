@@ -1,56 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+import { HiArrowLeft } from "react-icons/hi2";
+
 import PremierLeagueQxts from "../components/PremierLeagueQxts";
 import { useQuestions } from "../contexts/DataProvider";
 import useTimer from "../contexts/useTimer";
 
-const StyledNavLink = styled.button`
-  padding: 4px;
-  text-align: center;
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-  text-decoration: none;
-  background-color: green;
-  border: 8px;
-`;
+import '../styles.css';
+import BackButton from "../ui/BackButton";
+import { Header, Img, QuestionPicker, StyledNavLink, StyledLeague as StyledPremierLeague, StyledWholePage, TimePicker } from "../ui/StyleLeagurPage";
 
-const Img = styled.img`
-  width: 50px;
-  border-radius: 50%;
-  height: 50px;
-  object-fit: cover;
-`;
 
-const Header = styled.div`
-  border: 1px solid green;
-  padding-inline: 1.5rem;
-  border-radius: 13px;
-  display: flex;
-  justify-content: space-between;
-  /* padding-inline: 1.5rem; */
-  padding-block: 1.5rem;
-  align-items: center;
-`;
-
-const QuestionPicker = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TimePicker = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-block: 1.5rem;
-`;
-
-const StyledPremierLeague = styled.div`
-  padding-inline: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
 
 function PremierLeague() {
   const navigate = useNavigate();
@@ -94,10 +54,12 @@ function PremierLeague() {
   console.log(timeRemaining);
 
   return (
-    <>
+    <StyledWholePage>
       {isQuestionsOpen && (
         <>
-          <button onClick={() => navigate(-1)}>&larr;</button>
+          <BackButton  onClick={() => navigate(-1)}>
+            <HiArrowLeft style={{fontWeight: 'bold'}} />
+          </BackButton>
           <StyledPremierLeague>
             <Header>
               <Img
@@ -105,7 +67,6 @@ function PremierLeague() {
                 alt="premier league"
               />
               <div>Premier League</div>
-              <button>&larr;</button>
             </Header>
 
             <QuestionPicker>
@@ -129,12 +90,13 @@ function PremierLeague() {
 
             <TimePicker>
               <div>
-                {mins} : {secs}
+                {mins < 10 ? `0${mins}`: mins} : {secs < 10 ? `0${secs}`: secs}
               </div>
 
               <select
                 name="time"
                 id="time"
+                className="select"
                 value={timeLimit}
                 onChange={handleTime}
               >
@@ -154,7 +116,7 @@ function PremierLeague() {
       {/*passing the value of the min, secs, and the setisrunning to false on click of the finish button*/}
       {/*eslint-disable-next-line*/}
       {!isQuestionsOpen && <PremierLeagueQxts timeRemaining={timeRemaining} />}
-    </>
+    </StyledWholePage>
   );
 }
 
