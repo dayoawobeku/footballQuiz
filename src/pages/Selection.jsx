@@ -1,10 +1,10 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import { HiArrowLeft } from "react-icons/hi2";
+import BackButton from "../ui/BackButton";
 
 const StyledSelection = styled.div`
   display: grid;
-  /* grid-template-columns: 400px 400px; */
-  
   gap: 15px;
 `;
 
@@ -19,21 +19,33 @@ const StyledNavLink = styled(NavLink)`
   border: 8px;
 `;
 
+const StyledWholePage = styled.div`
+  background-color: lightgreen;
+  height: 100dvh;
+  font-family: "Merriweather Sans", sans-serif;
+`;
+
+
+
 function Selection() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <button onClick={() => navigate(-1)}>&larr;</button>
-      <h1>Take a Quiz</h1>
-      <p>Pick a Section</p>
+    <StyledWholePage>
+      <BackButton  onClick={() => navigate(-1)}>
+        <HiArrowLeft />
+      </BackButton>
+      <div style={{ textAlign: "center", marginBottom: "80px" }}>
+        <h1>Take a Quiz</h1>
+        <p>Pick a Section</p>
+      </div>
 
       <StyledSelection>
-        <StyledNavLink to='/premierLeague'>Premier League</StyledNavLink>
-        <StyledNavLink to='/laLiga'>La Liga</StyledNavLink>
-        <StyledNavLink to='/championsLeague'>Champions League</StyledNavLink>
+        <StyledNavLink to="/premierLeague">Premier League</StyledNavLink>
+        <StyledNavLink to="/laLiga">La Liga</StyledNavLink>
+        <StyledNavLink to="/championsLeague">Champions League</StyledNavLink>
       </StyledSelection>
-    </div>
+    </StyledWholePage>
   );
 }
 

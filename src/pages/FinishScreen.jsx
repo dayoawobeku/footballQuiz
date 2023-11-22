@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+// import './custom.css'
+import "react-circular-progressbar/dist/styles.css";
+
 import { styled } from "styled-components";
 import { useQuestions } from "../contexts/DataProvider";
 
@@ -36,9 +40,12 @@ function FinishScreen() {
     dispatch({ type: "finish" });
   }
 
+  const percentage = Math.round((totalPoints / maxPossiblePoint) * 100);
+  console.log(percentage);
+
   return (
     <Final>
-      <Img
+      {/* <Img
         src={`${
           leagueType === "Premier League"
             ? "/images/Premier_League.webp"
@@ -47,7 +54,17 @@ function FinishScreen() {
             : "/images/laliga-logo.jpg"
         }`}
         alt=""
-      />
+      /> */}
+
+      <div style={{ width: 150, height: 150 }}>
+        <CircularProgressbar
+          value={percentage}
+          text={`${percentage}%`}
+          styles={buildStyles({
+            pathTransitionDuration: 8.8,
+          })}
+        />
+      </div>
       <div>
         Total Score : {totalPoints} of {maxPossiblePoint}
       </div>
