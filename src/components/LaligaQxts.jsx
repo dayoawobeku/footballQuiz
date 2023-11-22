@@ -2,7 +2,8 @@ import { useQuestions } from "../contexts/DataProvider";
 import Questions from "./Questions";
 
 //providing state to monitor the position of the question
-function LaligaQxts() {
+//eslint-disable-next-line
+function LaligaQxts({timeRemaining}) {
   const { questions, tracker, maxQxts } = useQuestions();
 
   const LA_LIGA_QXTS = questions
@@ -15,6 +16,7 @@ function LaligaQxts() {
       <Questions
         question={LA_LIGA_QXTS?.at(tracker)}
         qxtLength={LA_LIGA_QXTS?.length}
+        timeRemaining={timeRemaining}
       />
     </div>
   );
