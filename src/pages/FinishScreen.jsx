@@ -3,38 +3,56 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 // import './custom.css'
 import "react-circular-progressbar/dist/styles.css";
 
-import { styled } from "styled-components";
+import { css, styled } from "styled-components";
 import { useQuestions } from "../contexts/DataProvider";
-
-const Img = styled.img`
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 50%;
-`;
+import { HiHome } from "react-icons/hi2";
 
 const Final = styled.div`
-  border: 2px solid green;
-  margin: 40px;
+  height: 100vh;
+  /* margin: 40px; */
   display: flex;
+  background-color: lightgreen;
+  font-family: "Merriweather Sans", sans-serif;
   flex-direction: column;
   gap: 20px;
   align-items: center;
   border-radius: 10px;
-  padding-block: 30px;
+  opacity: 0.8;
+  padding-block: 70px;
+`;
+
+const variation = {
+  home: css`
+    background-color: #555454;
+    width: 40px;
+  `,
+  away: css`
+    background-color: green;
+  `,
+};
+
+const FinalWrapper = styled.div`
+  background-image: url("./images/final-bg.webp");
+  height: 100dvh;
 `;
 
 const Button = styled(Link)`
-  padding: 10px;
-  background-color: green;
+  ${(prop) =>
+    prop["data-variation"] === "home" ? variation.home : variation.away}
+  margin-right: 10px;
+  padding-inline: 8px;
+  padding-block: 8px;
+  font-family: "Permanent Marker", cursive;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
   text-decoration: none;
-  color: black;
+  color: white;
   border: none;
 `;
 
 function FinishScreen() {
-  const { leagueType, totalPoints, maxPossiblePoint, dispatch } =
-    useQuestions();
+  const { totalPoints, maxPossiblePoint, dispatch } = useQuestions();
 
   function handleFinish() {
     dispatch({ type: "finish" });
@@ -44,36 +62,33 @@ function FinishScreen() {
   console.log(percentage);
 
   return (
-    <Final>
-      {/* <Img
-        src={`${
-          leagueType === "Premier League"
-            ? "/images/Premier_League.webp"
-            : leagueType === "Champions League"
-            ? "/images/champions_league_logo.jpg"
-            : "/images/laliga-logo.jpg"
-        }`}
-        alt=""
-      /> */}
-
-      <div style={{ width: 150, height: 150 }}>
-        <CircularProgressbar
-          value={percentage}
-          text={`${percentage}%`}
-          styles={buildStyles({
-            pathTransitionDuration: 8.8,
-          })}
-        />
-      </div>
-      <div>
-        Total Score : {totalPoints} of {maxPossiblePoint}
-      </div>
-      <div>Good</div>
-      <div>Progress</div>
-      <Button onClick={handleFinish} to="/">
-        Go To Home
-      </Button>
-    </Final>
+    <FinalWrapper>
+      <Final>
+        <div style={{ width: 150, height: 150 }}>
+          <CircularProgressbar
+            value={percentage}
+            text={`${percentage}%`}
+            styles={buildStyles({
+              pathTransitionDuration: 8.8,
+              pathColor: "green",
+              textColor: "green",
+            })}
+          />
+        </div>
+        <div>
+          Total Score : {totalPoints} of {maxPossiblePoint}
+        </div>
+        {percentage > 0 && percentage < 50 && <div>Poor</div>}
+        {percentage > 50 && percentage < 80 && <div>Good 👌 </div>}
+        {percentage > 80 && <div>Excellent ✌️</div>}
+        <div style={{ display: "flex" }}>
+          <Button data-variation="home" onClick={handleFinish} to="/">
+            <HiHome style={{ color: "white", fontSize: "20px" }} />
+          </Button>
+          <Button data-variation="away">PLAY AGAIN</Button>
+        </div>
+      </Final>
+    </FinalWrapper>
   );
 }
 

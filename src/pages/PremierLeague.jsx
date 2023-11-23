@@ -1,23 +1,40 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { HiArrowLeft } from "react-icons/hi2";
 
 import PremierLeagueQxts from "../components/PremierLeagueQxts";
 import { useQuestions } from "../contexts/DataProvider";
 import useTimer from "../contexts/useTimer";
 
-import '../styles.css';
-import BackButton from "../ui/BackButton";
-import { Header, Img, QuestionPicker, StyledNavLink, StyledLeague as StyledPremierLeague, StyledWholePage, TimePicker } from "../ui/StyleLeagurPage";
+import "../styles.css";
+import {
+  Header,
+  Img,
+  QuestionPicker,
+  StyledNavLink,
+  StyledLeague as StyledPremierLeague,
+  StyledWholePage,
+  TimePicker,
+} from "../ui/StyleLeagurPage";
+import { styled } from "styled-components";
 
 
+
+const CustomBackButton = styled.button`
+  background: white;
+  border: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 12px;
+  position: relative;
+  left: 220px;
+  `
 
 function PremierLeague() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
   const EPL_QXT = questions?.find(
-    (ele) => ele.league === "Champions League"
+    (ele) => ele.league === "Premier League"
   )?.questions;
   const EPL_QXT_LENGTH = EPL_QXT.length;
 
@@ -28,6 +45,9 @@ function PremierLeague() {
   const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
 
   //defining the time the quiz should start counting
+
+  //differences
+  //
 
   function handleTime(e) {
     const time = e.target.value;
@@ -51,15 +71,11 @@ function PremierLeague() {
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
-  console.log(timeRemaining);
 
   return (
     <StyledWholePage>
       {isQuestionsOpen && (
         <>
-          <BackButton  onClick={() => navigate(-1)}>
-            <HiArrowLeft style={{fontWeight: 'bold'}} />
-          </BackButton>
           <StyledPremierLeague>
             <Header>
               <Img
@@ -90,7 +106,8 @@ function PremierLeague() {
 
             <TimePicker>
               <div>
-                {mins < 10 ? `0${mins}`: mins} : {secs < 10 ? `0${secs}`: secs}
+                {mins < 10 ? `0${mins}` : mins} :{" "}
+                {secs < 10 ? `0${secs}` : secs}
               </div>
 
               <select
@@ -106,9 +123,11 @@ function PremierLeague() {
               </select>
             </TimePicker>
 
-            {/* to implement level later */}
 
             <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
+          <CustomBackButton onClick={() => navigate(-1)}>
+            Back
+          </CustomBackButton>
           </StyledPremierLeague>
         </>
       )}

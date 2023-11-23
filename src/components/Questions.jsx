@@ -7,10 +7,20 @@ import useTimer from "../contexts/useTimer";
 
 //eslint-disable-next-line
 const StyledQuestion = styled.div`
-  border: 2px solid green;
-  padding: 4px;
+  padding-top: 4px;
   max-width: 350px;
   text-align: center;
+  
+  margin-inline: 0;
+`;
+
+const StyledWholePage = styled.div`
+  display: grid;
+  place-items: center;
+  position: relative;
+  left: -38px;
+  width: 100vw;
+  font-family: "Merriweather Sans", sans-serif;
 `;
 
 const Description = styled.div`
@@ -25,8 +35,27 @@ const Header = styled.div`
   font-weight: 700;
   color: green;
   font-size: 1.2rem;
-  padding-block: 1.5rem;
+  padding-block:2rem;
+
 `;
+
+const OPtionsWrapper = styled.div`
+  background-color: white;
+  padding-block: 2rem;
+  padding-inline: 1.5rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+`;
+
+const StyledButton = styled.button`
+  background-color: green;
+  color: white;
+  border: none;
+  padding-block: 10px;
+  padding-inline: 20px;
+  border-radius: 5px;
+  `
+
 function Questions({ question, qxtLength, timeRemaining }) {
   const { dispatch, tracker, isQuestionsOpen } = useQuestions();
   const navigate = useNavigate();
@@ -54,10 +83,8 @@ function Questions({ question, qxtLength, timeRemaining }) {
   };
 
   return (
-    <div style={{ display: "grid", placeItems: "center" }}>
+    <StyledWholePage>
       <progress value={tracker + 1} max={qxtLength}></progress>
-      <div style={{ marginBlock: "10px" }}>Timer</div>
-      {/* for now in terms of qxt length we are working with the total number of qxts, later on we can optimize it to allow the user to select the number of questions they want to answer */}
 
       <Description>
         Question {tracker + 1} of {qxtLength}
@@ -69,15 +96,17 @@ function Questions({ question, qxtLength, timeRemaining }) {
       <div>
         <StyledQuestion>
           <Header>{question?.question}</Header>
-          {question?.options.map((option, i) => (
-            <Options
-              option={option}
-              value={i}
-              correctOption={indexOfAnswer}
-              key={i}
-              point={question?.point}
-            />
-          ))}
+          <OPtionsWrapper>
+            {question?.options.map((option, i) => (
+              <Options
+                option={option}
+                value={i}
+                correctOption={indexOfAnswer}
+                key={i}
+                point={question?.point}
+              />
+            ))}
+          </OPtionsWrapper>
         </StyledQuestion>
 
         <div
@@ -88,18 +117,18 @@ function Questions({ question, qxtLength, timeRemaining }) {
             width: "100%",
           }}
         >
-          <button
+          <StyledButton
             disabled={tracker === 0}
             onClick={() => dispatch({ type: "decrement" })}
           >
             Previous
-          </button>
-          <button onClick={handleClick}>
+          </StyledButton>
+          <StyledButton onClick={handleClick}>
             {tracker + 1 === qxtLength ? "Finish" : "Next"}
-          </button>
+          </StyledButton>
         </div>
       </div>
-    </div>
+    </StyledWholePage>
   );
 }
 

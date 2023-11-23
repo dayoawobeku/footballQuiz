@@ -1,3 +1,5 @@
+import { styled } from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useQuestions } from "../contexts/DataProvider";
@@ -15,14 +17,22 @@ import {
   Img,
   StyledNavLink,
 } from "../ui/StyleLeagurPage";
-import BackButton from "../ui/BackButton";
+const CustomBackButton = styled.button`
+  background: white;
+  border: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 12px;
+  position: relative;
+  left: 220px;
+`;
 
 function Laliga() {
   const navigate = useNavigate();
   const { dispatch, isQuestionsOpen, questions } = useQuestions();
 
   const LIGA_QXTS = questions?.find(
-    (ele) => ele.league === "Champions League"
+    (ele) => ele.league === "La Liga"
   )?.questions;
   const LIGA_QXTS_LENGTH = LIGA_QXTS.length;
 
@@ -61,10 +71,6 @@ function Laliga() {
     <StyledWholePage>
       {isQuestionsOpen && (
         <>
-          <BackButton onClick={() => navigate(-1)}>
-            &
-            <HiArrowLeft style={{ fontWeight: "bold" }} />
-          </BackButton>
           <StyledLaliga>
             <Header>
               <Img src="./images/laliga-logo.jpg" alt="La liga" />
@@ -110,9 +116,11 @@ function Laliga() {
               </select>
             </TimePicker>
 
-            {/* to implement level later */}
 
             <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
+            <CustomBackButton onClick={() => navigate(-1)}>
+              Back
+            </CustomBackButton>
           </StyledLaliga>
         </>
       )}

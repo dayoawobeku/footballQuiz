@@ -3,28 +3,7 @@ import { useState } from "react";
 import { useQuestions } from "../contexts/DataProvider";
 import "../styles.css";
 
-const variation = {
-  correct: css`
-    border: 1px solid green;
-  `,
-  wrong: css`
-    border: 1px solid red;
-  `,
-  normal: css`
-    border: none;
-  `,
-};
 
-const StyledButton = styled.button`
-  ${(prop) =>
-    variation[prop.status] ? variation[prop.status] : `${variation.normal}`}
-
-  //changed from empty string to normal
-  display: block;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-`;
 
 function Options({ option, value, correctOption, point }) {
   //using context api to store my stateful logic
@@ -67,9 +46,7 @@ function Options({ option, value, correctOption, point }) {
   );
 }
 
-StyledButton.defaultProps = {
-  status: "normal",
-};
+
 
 export default Options;
 

@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { styled } from "styled-components";
+
 import { useNavigate } from "react-router-dom";
 import { useQuestions } from "../contexts/DataProvider";
 import ChampionsLeagueQxts from "../components/ChampionsLeagueQxts";
+
+import useTimer from "../contexts/useTimer";
+
 import {
   Header,
   Img,
@@ -11,9 +16,16 @@ import {
   StyledWholePage,
   TimePicker,
 } from "../ui/StyleLeagurPage";
-import useTimer from "../contexts/useTimer";
-import BackButton from "../ui/BackButton";
-import { HiArrowLeft } from "react-icons/hi2";
+
+const CustomBackButton = styled.button`
+  background: white;
+  border: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 12px;
+  position: relative;
+  left: 220px;
+`;
 
 function ChampionsLeague() {
   const navigate = useNavigate();
@@ -58,9 +70,6 @@ function ChampionsLeague() {
     <StyledWholePage>
       {isQuestionsOpen && (
         <>
-          <BackButton onClick={() => navigate(-1)}>
-            <HiArrowLeft style={{ fontWeight: "bold" }} />
-          </BackButton>
           <StyledChampionsLeague>
             <Header>
               <Img
@@ -111,11 +120,16 @@ function ChampionsLeague() {
             {/* to implement level later */}
 
             <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
+            <CustomBackButton onClick={() => navigate(-1)}>
+              Back
+            </CustomBackButton>
           </StyledChampionsLeague>
         </>
       )}
 
-      {!isQuestionsOpen && <ChampionsLeagueQxts timeRemaining={timeRemaining}/>}
+      {!isQuestionsOpen && (
+        <ChampionsLeagueQxts timeRemaining={timeRemaining} />
+      )}
     </StyledWholePage>
   );
 }
