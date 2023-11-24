@@ -7,9 +7,9 @@ const BackButton = styled.button`
   width: 30px;
   border-radius: 50%;
   color: white;
-  position: relative;
+  /* position: relative;
   top: 10px;
-  left: 20px;
+  left: 20px; */
   cursor: pointer;
 `;
 

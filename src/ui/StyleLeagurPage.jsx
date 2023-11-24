@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-const StyledNavLink = styled.button`
+const StyledNavLink = styled(Link)`
   padding: 4px;
   text-align: center;
   color: white;
@@ -9,6 +10,7 @@ const StyledNavLink = styled.button`
   text-decoration: none;
   background-color: green;
   border: 8px;
+  cursor: pointer;
 `;
 
 const Img = styled.img`
@@ -48,11 +50,20 @@ const StyledLeague = styled.div`
 
 const StyledWholePage = styled.div`
   padding-inline: 1.5rem;
+  padding-top: 2rem;
   background-color: lightgreen;
-  font-family: 'Merriweather Sans';
+  font-family: "Merriweather Sans";
   height: 100dvh;
   display: flex;
   flex-direction: column;
-  gap: 2rem
-`
-export {StyledNavLink, Img, Header, QuestionPicker, TimePicker, StyledLeague, StyledWholePage}
+  gap: 2rem;
+`;
+export {
+  StyledNavLink,
+  Img,
+  Header,
+  QuestionPicker,
+  TimePicker,
+  StyledLeague,
+  StyledWholePage,
+};

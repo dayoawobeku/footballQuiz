@@ -12,6 +12,9 @@ const initialState = {
   answer: null,
   maxQxts: 1,
   maxPossiblePoint: 0,
+  // timeRemaining: 0,
+  // isRunning: false,
+  // timeLimit: 120,
 };
 
 // const BASE_URL = '';
@@ -61,6 +64,21 @@ function reducer(state, action) {
         answer: action.payload.at(0),
         totalPoints: action.payload.at(1),
       };
+    // case "setTime":
+    //   return {
+    //     ...state,
+    //     timeLimit: action.payload,
+    //   };
+    // case "countdown":
+    //   return {
+    //     ...state,
+    //     timeRemaining: state.timeRemaining - 1,
+    //   };
+    // case "checkRunningState":
+    //   return {
+    //     ...state,
+    //     isRunning: action.payload,
+    //   };
     default:
       return new Error("Action Type not Found");
   }
@@ -87,6 +105,9 @@ function DataProvider({ children }) {
       answer,
       maxQxts,
       maxPossiblePoint,
+      // timeRemaining,
+      // timeLimit,
+      // isRunning
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -102,6 +123,9 @@ function DataProvider({ children }) {
         answer,
         totalPoints,
         maxPossiblePoint,
+        // timeRemaining,
+        // timeLimit,
+        // isRunning,
         dispatch,
       }}
     >
