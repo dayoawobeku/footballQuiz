@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import PremierLeagueQxts from "../components/PremierLeagueQxts";
 import { useQuestions } from "../contexts/DataProvider";
@@ -17,8 +17,6 @@ import {
 } from "../ui/StyleLeagurPage";
 import { styled } from "styled-components";
 
-
-
 const CustomBackButton = styled.button`
   background: white;
   border: none;
@@ -27,7 +25,8 @@ const CustomBackButton = styled.button`
   border-radius: 12px;
   position: relative;
   left: 220px;
-  `
+  cursor: pointer;
+`;
 
 function PremierLeague() {
   const navigate = useNavigate();
@@ -44,11 +43,6 @@ function PremierLeague() {
 
   const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
 
-  //defining the time the quiz should start counting
-
-  //differences
-  //
-
   function handleTime(e) {
     const time = e.target.value;
     const chosenTime = time * 60;
@@ -56,21 +50,23 @@ function PremierLeague() {
     setTimeLimit(chosenTime);
   }
 
-  function handleStart() {
-    //starting the counter
-    setIsRunning(true);
-    dispatch({
-      type: "startQuiz",
-      payload: [
-        "Premier League",
-        count,
-        EPL_QXT?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
-      ],
-    });
-  }
+  // function handleStart() {
+  //   //starting the counter
+  //   // navigate("/premierLeague/questions");
+  //   // setIsRunning(true);
+  //   // dispatch({
+  //   //   type: "startQuiz",
+  //   //   payload: [
+  //   //     "Premier League",
+  //   //     count,
+  //   //     EPL_QXT?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
+  //   //   ],
+  //   // });
+  // }
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
+  console.log(isQuestionsOpen);
 
   return (
     <StyledWholePage>
@@ -123,18 +119,29 @@ function PremierLeague() {
               </select>
             </TimePicker>
 
-
-            <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
-          <CustomBackButton onClick={() => navigate(-1)}>
-            Back
-          </CustomBackButton>
+            <StyledNavLink to="/premierLeague/questions">
+              Start Quiz
+            </StyledNavLink>
+            <CustomBackButton onClick={() => navigate(-1)}>
+              Back
+            </CustomBackButton>
           </StyledPremierLeague>
         </>
       )}
 
       {/*passing the value of the min, secs, and the setisrunning to false on click of the finish button*/}
       {/*eslint-disable-next-line*/}
-      {!isQuestionsOpen && <PremierLeagueQxts timeRemaining={timeRemaining} />}
+      {/* {!isQuestionsOpen && <PremierLeagueQxts timeRemaining={timeRemaining} />} */}
+
+      <Outlet
+        context={{
+          timeRemaining,
+          isQuestionsOpen,
+          setIsRunning,
+          count,
+          EPL_QXT,
+        }}
+      />
     </StyledWholePage>
   );
 }

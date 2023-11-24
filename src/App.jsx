@@ -7,27 +7,39 @@ import Selection from "./pages/Selection";
 import { DataProvider } from "./contexts/DataProvider";
 import FinishScreen from "./pages/FinishScreen";
 import PageNotFound from "./pages/PageNotFound";
-// import { QueryClient, QueryClientProvider } from "react-query";
+import PremierLeagueQxts from "./components/PremierLeagueQxts";
+import LaligaQxts from "./components/LaligaQxts";
+import ChampionsLeagueQxts from "./components/ChampionsLeagueQxts";
 
 function App() {
-  // const queryClient = new QueryClient();
   return (
-    // <QueryClientProvider client={queryClient}>
+    
     <DataProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/selection" element={<Selection />} />
-          <Route path="/premierLeague" element={<PremierLeague />} />
+          <Route path="selection" element={<Selection />} />
+          <Route path="premierLeague" element={<PremierLeague />}>
+            <Route
+              path="questions"
+              element={<PremierLeagueQxts />}
+            />
+          </Route>
 
-          <Route path="/laLiga" element={<Laliga />} />
-          <Route path="/championsLeague" element={<ChampionsLeague />} />
-          <Route path="/finish" element={<FinishScreen />} />
-          <Route path='*' element={<PageNotFound />} />
+          <Route path="laLiga" element={<Laliga />}>
+            <Route path="questions" element={<LaligaQxts />} />
+          </Route>
+          <Route path="championsLeague" element={<ChampionsLeague />}>
+            <Route
+              path="questions"
+              element={<ChampionsLeagueQxts />}
+            />
+          </Route>
+          <Route path="finish" element={<FinishScreen />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </DataProvider>
-    // </QueryClientProvider>
   );
 }
 
