@@ -46,17 +46,20 @@ const StyledLeague = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  min-width: 300px;
+  margin: auto;
 `;
 
 const StyledWholePage = styled.div`
   padding-inline: 1.5rem;
   padding-top: 2rem;
   background-color: lightgreen;
+  height: 100vh;
   font-family: "Merriweather Sans";
-  height: 100dvh;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
 `;
 export {
   StyledNavLink,

@@ -22,29 +22,49 @@ const StyledNavLink = styled(NavLink)`
 const StyledWholePage = styled.div`
   background-color: lightgreen;
   height: 100dvh;
+  padding: 50px;
   font-family: "Merriweather Sans", sans-serif;
 `;
 
+const Wrapper = styled.div`
+  max-width: 800px;
+  margin: auto;
+`;
 
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 function Selection() {
   const navigate = useNavigate();
 
   return (
     <StyledWholePage>
-      <BackButton  onClick={() => navigate(-1)}>
-        <HiArrowLeft />
-      </BackButton>
-      <div style={{ textAlign: "center", marginBottom: "80px" }}>
-        <h1>Take a Quiz</h1>
-        <p>Pick a Section</p>
-      </div>
+      <Wrapper>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "80px",
+          }}
+        >
+          <Header>
+            <BackButton onClick={() => navigate(-1)}>
+              <HiArrowLeft />
+            </BackButton>
+            <h1 style={{ maxWidth: "700px", marginInline: "auto" }}>
+              Take a Quiz
+            </h1>
+          </Header>
+          <p>Pick a Section</p>
+        </div>
 
-      <StyledSelection>
-        <StyledNavLink to="/premierLeague">Premier League</StyledNavLink>
-        <StyledNavLink to="/laLiga">La Liga</StyledNavLink>
-        <StyledNavLink to="/championsLeague">Champions League</StyledNavLink>
-      </StyledSelection>
+        <StyledSelection>
+          <StyledNavLink to="/premierLeague">Premier League</StyledNavLink>
+          <StyledNavLink to="/laLiga">La Liga</StyledNavLink>
+          <StyledNavLink to="/championsLeague">Champions League</StyledNavLink>
+        </StyledSelection>
+      </Wrapper>
     </StyledWholePage>
   );
 }
