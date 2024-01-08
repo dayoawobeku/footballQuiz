@@ -10,30 +10,27 @@ import PageNotFound from "./pages/PageNotFound";
 import PremierLeagueQxts from "./components/PremierLeagueQxts";
 import LaligaQxts from "./components/LaligaQxts";
 import ChampionsLeagueQxts from "./components/ChampionsLeagueQxts";
+import GlobalStyle from "./globalStyles";
+import ParticlesContainer from "./pages/Particles";
 
 function App() {
   return (
-    
     <DataProvider>
       <BrowserRouter>
+        <GlobalStyle />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="selection" element={<Selection />} />
           <Route path="premierLeague" element={<PremierLeague />}>
-            <Route
-              path="questions"
-              element={<PremierLeagueQxts />}
-            />
+            <Route path="questions" element={<PremierLeagueQxts />} />
           </Route>
+          <Route path='particle' element={<ParticlesContainer />} />
 
           <Route path="laLiga" element={<Laliga />}>
             <Route path="questions" element={<LaligaQxts />} />
           </Route>
           <Route path="championsLeague" element={<ChampionsLeague />}>
-            <Route
-              path="questions"
-              element={<ChampionsLeagueQxts />}
-            />
+            <Route path="questions" element={<ChampionsLeagueQxts />} />
           </Route>
           <Route path="finish" element={<FinishScreen />} />
           <Route path="*" element={<PageNotFound />} />
