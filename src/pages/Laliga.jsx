@@ -1,13 +1,11 @@
 import { styled } from "styled-components";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
+
 import { useQuestions } from "../contexts/DataProvider";
-import { HiArrowLeft } from "react-icons/hi2";
 
-import LaligaQxts from "../components/LaligaQxts";
 import useTimer from "../contexts/useTimer";
-
 import {
   StyledWholePage,
   StyledLeague as StyledLaliga,
@@ -17,6 +15,7 @@ import {
   Img,
   StyledNavLink,
 } from "../ui/StyleLeagurPage";
+
 const CustomBackButton = styled.button`
   background: white;
   border: none;
@@ -29,7 +28,10 @@ const CustomBackButton = styled.button`
 
 function Laliga() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen, questions } = useQuestions();
+  const { isQuestionsOpen, questions } = useQuestions();
+
+  const [count, setCount] = useState(1);
+  const [select, setSelect] = useState(2);
 
   const LIGA_QXTS = questions?.find(
     (ele) => ele.league === "La Liga"
@@ -37,8 +39,6 @@ function Laliga() {
   const LIGA_QXTS_LENGTH = LIGA_QXTS.length;
 
   // const [isOpen, setIsOpen] = useState(false);
-
-  const [count, setCount] = useState(1);
 
   const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
 
@@ -49,20 +49,21 @@ function Laliga() {
     const chosenTime = time * 60;
 
     setTimeLimit(chosenTime);
+    setSelect(e.target.value);
   }
 
-  function handleStart() {
-    //starting the counter
-    setIsRunning(true);
-    dispatch({
-      type: "startQuiz",
-      payload: [
-        "La Liga",
-        count,
-        LIGA_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
-      ],
-    });
-  }
+  // function handleStart() {
+  //   //starting the counter
+  //   setIsRunning(true);
+  //   dispatch({
+  //     type: "startQuiz",
+  //     payload: [
+  //       "La Liga",
+  //       count,
+  //       LIGA_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
+  //     ],
+  //   });
+  // }
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
@@ -75,7 +76,6 @@ function Laliga() {
             <Header>
               <Img src="./images/laliga-logo.jpg" alt="La liga" />
               <div>La Liga</div>
-              <button>&larr;</button>
             </Header>
 
             <QuestionPicker>
@@ -107,7 +107,7 @@ function Laliga() {
                 name="time"
                 className="select"
                 onChange={handleTime}
-                value={timeLimit}
+                value={select}
                 id="time"
               >
                 <option value={2}>2 mins</option>
@@ -116,8 +116,7 @@ function Laliga() {
               </select>
             </TimePicker>
 
-
-            <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
+            <StyledNavLink to="/laLiga/questions">Start Quiz</StyledNavLink>
             <CustomBackButton onClick={() => navigate(-1)}>
               Back
             </CustomBackButton>
@@ -125,7 +124,17 @@ function Laliga() {
         </>
       )}
 
-      {!isQuestionsOpen && <LaligaQxts timeRemaining={timeRemaining} />}
+      {/* {!isQuestionsOpen && <LaligaQxts timeRemaining={timeRemaining} />}
+       */}
+      <Outlet
+        context={{
+          timeRemaining,
+          isQuestionsOpen,
+          setIsRunning,
+          count,
+          LIGA_QXTS,
+        }}
+      />
     </StyledWholePage>
   );
 }

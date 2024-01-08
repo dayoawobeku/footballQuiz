@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useQuestions } from "../contexts/DataProvider";
-import ChampionsLeagueQxts from "../components/ChampionsLeagueQxts";
 
 import useTimer from "../contexts/useTimer";
 
@@ -22,6 +21,7 @@ const CustomBackButton = styled.button`
   border: none;
   height: 30px;
   width: 70px;
+  cursor: pointer;
   border-radius: 12px;
   position: relative;
   left: 220px;
@@ -29,9 +29,10 @@ const CustomBackButton = styled.button`
 
 function ChampionsLeague() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen, questions } = useQuestions();
+  const {  isQuestionsOpen, questions } = useQuestions();
 
   const [count, setCount] = useState(1);
+  const [select, setSelect] = useState(2);
 
   const CL_QXTS = questions?.find(
     (ele) => ele.league === "Champions League"
@@ -48,19 +49,7 @@ function ChampionsLeague() {
     const chosenTime = time * 60;
 
     setTimeLimit(chosenTime);
-  }
-
-  function handleStart() {
-    //starting the counter
-    setIsRunning(true);
-    dispatch({
-      type: "startQuiz",
-      payload: [
-        "Champions League",
-        count,
-        CL_QXTS?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
-      ],
-    });
+    setSelect(e.target.value)
   }
 
   const secs = timeRemaining % 60;
@@ -77,7 +66,6 @@ function ChampionsLeague() {
                 alt="champions league"
               />
               <div>Champions League</div>
-              <button>&larr;</button>
             </Header>
 
             <QuestionPicker>
@@ -108,7 +96,7 @@ function ChampionsLeague() {
                 name="time"
                 id="time"
                 className="select"
-                value={timeLimit}
+                value={select}
                 onChange={handleTime}
               >
                 <option value={2}>2 mins</option>
@@ -119,7 +107,9 @@ function ChampionsLeague() {
 
             {/* to implement level later */}
 
-            <StyledNavLink onClick={handleStart}>Start Quiz</StyledNavLink>
+            <StyledNavLink to="/championsLeague/questions">
+              Start Quiz
+            </StyledNavLink>
             <CustomBackButton onClick={() => navigate(-1)}>
               Back
             </CustomBackButton>
@@ -127,9 +117,19 @@ function ChampionsLeague() {
         </>
       )}
 
-      {!isQuestionsOpen && (
+      {/* {!isQuestionsOpen && (
         <ChampionsLeagueQxts timeRemaining={timeRemaining} />
-      )}
+      )} */}
+
+      <Outlet
+        context={{
+          timeRemaining,
+          isQuestionsOpen,
+          setIsRunning,
+          count,
+          CL_QXTS,
+        }}
+      />
     </StyledWholePage>
   );
 }

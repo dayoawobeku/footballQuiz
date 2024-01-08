@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import PremierLeagueQxts from "../components/PremierLeagueQxts";
 import { useQuestions } from "../contexts/DataProvider";
 import useTimer from "../contexts/useTimer";
 
@@ -24,15 +23,27 @@ const CustomBackButton = styled.button`
   width: 70px;
   border-radius: 12px;
   position: relative;
-  left: 220px;
+  right: 0;
   cursor: pointer;
+`;
+
+const ButtonBackDiv = styled.div`
+  width: 100%;
+  text-align: right;
 `;
 
 function PremierLeague() {
   const navigate = useNavigate();
-  const { dispatch, isQuestionsOpen, questions } = useQuestions();
+  const { isQuestionsOpen, questions } = useQuestions();
 
-  const EPL_QXT = questions?.find(
+  //make sure always delete the localstorage before you start /the app
+
+  //This is where the app breaks
+  !localStorage.getItem("questions") &&
+    localStorage.setItem("questions", JSON.stringify(questions));
+  const staleQuestions = localStorage.getItem("questions");
+
+  const EPL_QXT = JSON.parse(staleQuestions)?.find(
     (ele) => ele.league === "Premier League"
   )?.questions;
   const EPL_QXT_LENGTH = EPL_QXT.length;
@@ -40,6 +51,7 @@ function PremierLeague() {
   // const [isOpen, setIsOpen] = useState(false);
 
   const [count, setCount] = useState(1);
+  const [select, setSelect] = useState(2);
 
   const { timeRemaining, setIsRunning, timeLimit, setTimeLimit } = useTimer();
 
@@ -48,21 +60,10 @@ function PremierLeague() {
     const chosenTime = time * 60;
 
     setTimeLimit(chosenTime);
+    setSelect(e.target.value);
   }
 
-  // function handleStart() {
-  //   //starting the counter
-  //   // navigate("/premierLeague/questions");
-  //   // setIsRunning(true);
-  //   // dispatch({
-  //   //   type: "startQuiz",
-  //   //   payload: [
-  //   //     "Premier League",
-  //   //     count,
-  //   //     EPL_QXT?.slice(0, count).reduce((acc, cur) => acc + cur.point, 0),
-  //   //   ],
-  //   // });
-  // }
+  //making the select button a controlled element;
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
@@ -110,7 +111,7 @@ function PremierLeague() {
                 name="time"
                 id="time"
                 className="select"
-                value={timeLimit}
+                value={select}
                 onChange={handleTime}
               >
                 <option value={2}>2 mins</option>
@@ -122,9 +123,11 @@ function PremierLeague() {
             <StyledNavLink to="/premierLeague/questions">
               Start Quiz
             </StyledNavLink>
-            <CustomBackButton onClick={() => navigate(-1)}>
-              Back
-            </CustomBackButton>
+            <ButtonBackDiv>
+              <CustomBackButton onClick={() => navigate(-1)}>
+                Back
+              </CustomBackButton>
+            </ButtonBackDiv>
           </StyledPremierLeague>
         </>
       )}
