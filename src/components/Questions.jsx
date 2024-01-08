@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import Options from "./Options";
 import { useQuestions } from "../contexts/DataProvider";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import useTimer from "../contexts/useTimer";
-// import { useState } from "react";
+import '../styles.css'
 
 //eslint-disable-next-line
 const StyledQuestion = styled.div`
@@ -19,7 +19,7 @@ const StyledWholePage = styled.div`
   place-items: center;
   position: relative;
   left: -38px;
-  width: 100vw;
+  width: 100dvw;
   font-family: "Merriweather Sans", sans-serif;
 `;
 
@@ -50,6 +50,7 @@ const OPtionsWrapper = styled.div`
 const StyledButton = styled.button`
   background-color: green;
   color: white;
+  cursor: pointer;
   border: none;
   padding-block: 10px;
   padding-inline: 20px;
