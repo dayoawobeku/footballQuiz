@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { HiArrowLeft } from "react-icons/hi2";
 import BackButton from "../ui/BackButton";
+import { useEffect } from "react";
+import { useQuestions } from "../contexts/DataProvider";
 
 const StyledSelection = styled.div`
   display: grid;
@@ -38,6 +40,15 @@ const Header = styled.div`
 
 function Selection() {
   const navigate = useNavigate();
+
+  const { questions } = useQuestions();
+
+  // set questions in local storage here
+  useEffect(() => {
+    if (questions?.length && !localStorage.getItem("questions")) {
+      localStorage.setItem("questions", JSON.stringify(questions));
+    }
+  }, [questions]);
 
   return (
     <StyledWholePage>

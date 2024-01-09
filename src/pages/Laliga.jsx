@@ -36,7 +36,7 @@ function Laliga() {
   const LIGA_QXTS = questions?.find(
     (ele) => ele.league === "La Liga"
   )?.questions;
-  const LIGA_QXTS_LENGTH = LIGA_QXTS.length;
+  const LIGA_QXTS_LENGTH = LIGA_QXTS && LIGA_QXTS.length;
 
   // const [isOpen, setIsOpen] = useState(false);
 

@@ -11,7 +11,7 @@ import PremierLeagueQxts from "./components/PremierLeagueQxts";
 import LaligaQxts from "./components/LaligaQxts";
 import ChampionsLeagueQxts from "./components/ChampionsLeagueQxts";
 import GlobalStyle from "./globalStyles";
-import ParticlesContainer from "./pages/Particles";
+// import ParticlesContainer from "./pages/Particles";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
           <Route path="premierLeague" element={<PremierLeague />}>
             <Route path="questions" element={<PremierLeagueQxts />} />
           </Route>
-          <Route path='particle' element={<ParticlesContainer />} />
+          {/* <Route path='particle' element={<ParticlesContainer />} /> */}
 
           <Route path="laLiga" element={<Laliga />}>
             <Route path="questions" element={<LaligaQxts />} />

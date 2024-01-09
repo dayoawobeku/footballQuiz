@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import { useQuestions } from "../contexts/DataProvider";
 import useTimer from "../contexts/useTimer";
@@ -34,19 +34,20 @@ const ButtonBackDiv = styled.div`
 
 function PremierLeague() {
   const navigate = useNavigate();
-  const { isQuestionsOpen, questions } = useQuestions();
+  const { pathname } = useLocation();
 
+  const { isQuestionsOpen, dispatch } = useQuestions();
   //make sure always delete the localstorage before you start /the app
 
   //This is where the app breaks
-  !localStorage.getItem("questions") &&
-    localStorage.setItem("questions", JSON.stringify(questions));
+
   const staleQuestions = localStorage.getItem("questions");
 
   const EPL_QXT = JSON.parse(staleQuestions)?.find(
     (ele) => ele.league === "Premier League"
   )?.questions;
-  const EPL_QXT_LENGTH = EPL_QXT.length;
+
+  const EPL_QXT_LENGTH = EPL_QXT?.length;
 
   // const [isOpen, setIsOpen] = useState(false);
 
@@ -67,11 +68,14 @@ function PremierLeague() {
 
   const secs = timeRemaining % 60;
   const mins = Math.floor(timeRemaining / 60);
-  console.log(isQuestionsOpen);
+
+  const isPremierLeagueQstsPage = pathname === "/premierLeague/questions";
+
+  console.log(count, "asop");
 
   return (
     <StyledWholePage>
-      {isQuestionsOpen && (
+      {isQuestionsOpen && !isPremierLeagueQstsPage ? (
         <>
           <StyledPremierLeague>
             <Header>
@@ -81,7 +85,6 @@ function PremierLeague() {
               />
               <div>Premier League</div>
             </Header>
-
             <QuestionPicker>
               <div>Questions</div>
               <div>
@@ -100,7 +103,6 @@ function PremierLeague() {
                 </button>
               </div>
             </QuestionPicker>
-
             <TimePicker>
               <div>
                 {mins < 10 ? `0${mins}` : mins} :{" "}
@@ -119,10 +121,25 @@ function PremierLeague() {
                 <option value={5}>5 mins</option>
               </select>
             </TimePicker>
-
-            <StyledNavLink to="/premierLeague/questions">
+            <button
+              onClick={() => {
+                setIsRunning(true);
+                dispatch({
+                  type: "startQuiz",
+                  payload: [
+                    "Premier League",
+                    count,
+                    EPL_QXT?.slice(0, count).reduce(
+                      (acc, cur) => acc + cur.point,
+                      0
+                    ),
+                  ],
+                });
+                navigate("/premierLeague/questions");
+              }}
+            >
               Start Quiz
-            </StyledNavLink>
+            </button>
             <ButtonBackDiv>
               <CustomBackButton onClick={() => navigate(-1)}>
                 Back
@@ -130,7 +147,7 @@ function PremierLeague() {
             </ButtonBackDiv>
           </StyledPremierLeague>
         </>
-      )}
+      ) : null}
 
       {/*passing the value of the min, secs, and the setisrunning to false on click of the finish button*/}
       {/*eslint-disable-next-line*/}

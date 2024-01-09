@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 // import './custom.css'
 import "react-circular-progressbar/dist/styles.css";
@@ -8,6 +8,8 @@ import { useQuestions } from "../contexts/DataProvider";
 import { HiHome } from "react-icons/hi2";
 import { useEffect } from "react";
 // import { initParticlesEngine } from "@tsparticles/react";
+import JSConfetti from "js-confetti";
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
@@ -82,6 +84,8 @@ function FinishScreen() {
     dispatch,
   } = useQuestions();
 
+  const navigate = useNavigate();
+
   const path = leagueType
     .split(" ")
     .join("")
@@ -93,10 +97,23 @@ function FinishScreen() {
 
   function handleFinish() {
     dispatch({ type: "finish" });
+    navigate("/premierLeague");
   }
 
-  const percentage = Math.round((totalPoints / maxPossiblePoint) * 100);
-  console.log(percentage);
+  const percentage =
+    totalPoints === 0 || maxPossiblePoint === 0
+      ? 0
+      : Math.round((totalPoints / maxPossiblePoint) * 100);
+
+  useEffect(() => {
+    const confetti = new JSConfetti();
+
+    if (percentage >= 90) {
+      confetti.addConfetti({
+        confettiColors: ["#a864fd", "#29cdff", "#78ff44", "#ff718d", "#fdff6a"],
+      });
+    }
+  }, [percentage]);
 
   //particles
 
@@ -113,11 +130,11 @@ function FinishScreen() {
   //     setInit(true);
   //   });
   // }, []);
-  
+
   // const particlesLoaded = (container) => {
   //   console.log(container);
   // };
-  
+
   // const options = useMemo(
   //   () => ({
   //     background: {
@@ -188,7 +205,6 @@ function FinishScreen() {
   //   }),
   //   [],
   // );
-  
 
   return (
     <FinalWrapper>
